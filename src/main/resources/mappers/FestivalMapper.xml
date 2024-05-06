@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dataton.irang.mapper.FestivalMapper">
+    <select id="getTargetById" resultType="com.dataton.irang.dto.FestivalDto">
+        SELECT *
+        FROM performance
+        WHERE FestivalURL IN (
+            SELECT uk.FestivalUrl
+            FROM users u
+                     JOIN userkeyword uk ON u.Id = uk.Id
+            WHERE u.id = #{userId}
+        );
+
+    </select>
+
+    <select id="getAllData" resultType="com.dataton.irang.dto.FestivalDto">
+        SELECT * FROM performance LIMIT 20;
+    </select>
+
+    <select id="getDataById" resultType="com.dataton.irang.dto.FestivalDto">
+        SELECT * FROM performance WHERE FestivalUrl = #{festivalId}
+    </select>
+</mapper>
